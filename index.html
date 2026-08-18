@@ -1,124 +1,92 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-81D6829LG0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-81D6829LG0');
-</script>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-81D6829LG0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-81D6829LG0');
+  </script>
 
   <meta charset="utf-8">
-  <!-- Meta tags for social media banners, these should be filled in appropriatly as they are your "business card" -->
-  <!-- Replace the content tag with appropriate information -->
-  <meta name="description" content="This research introduces a novel approach integrating 3D features and depth maps alongside RGB features to enhance action recognition accuracy. Our method involves processing estimated depth maps through a separate branch from the RGB feature encoder and fusing the features to understand the scene and actions comprehensively. Using the Side4Video framework and VideoMamba, which employ CLIP and VisionMamba for spatial feature extraction, our approach outperformed our implementation of the Side4Video network on the Something-Something V2 dataset.">
-  <meta property="og:title" content="DEAR: Depth-Estimated Action Recognition"/>
-  <meta property="og:description" content="This research introduces a novel approach integrating 3D features and depth maps alongside RGB features to enhance action recognition accuracy. Our method involves processing estimated depth maps through a separate branch from the RGB feature encoder and fusing the features to understand the scene and actions comprehensively. Using the Side4Video framework and VideoMamba, which employ CLIP and VisionMamba for spatial feature extraction, our approach outperformed our implementation of the Side4Video network on the Something-Something V2 dataset."/>
-  <meta property="og:url" content="https://andrewjohngilbert.github.io/dear/"/>
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X630-->
-  <meta property="og:image" content="assets/dear_Teaser.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="BiScopeNet is a text-guided framework for fine-grained egocentric sub-action recognition, explicitly modelling left- and right-hand roles and manipulated objects.">
+  <meta property="og:title" content="Sub-actions in Action: Text-Guided Hand-Role Alignment for Sub-Action Recognition"/>
+  <meta property="og:description" content="BiScopeNet combines FocusAlign and MetaLoss with the BiScopeCap-100K benchmark to improve fine-grained hand-role and object grounding in egocentric video-language models."/>
+  <meta property="og:image" content="assets/BiScopeNet_Teaser.jpg"/>
   <meta property="og:image:width" content="1200"/>
   <meta property="og:image:height" content="630"/>
-
-
-  <meta name="twitter:title" content="DEAR: Depth-Estimated Action Recognition">
-  <meta name="twitter:description" content="This research introduces a novel approach integrating 3D features and depth maps alongside RGB features to enhance action recognition accuracy. Our method involves processing estimated depth maps through a separate branch from the RGB feature encoder and fusing the features to understand the scene and actions comprehensively. Using the Side4Video framework and VideoMamba, which employ CLIP and VisionMamba for spatial feature extraction, our approach outperformed our implementation of the Side4Video network on the Something-Something V2 dataset">
-  <!-- Path to banner image, should be in the path listed below. Optimal dimenssions are 1200X600-->
-  <meta name="twitter:image" content="asserts/dear_Teaser.png">
   <meta name="twitter:card" content="summary_large_image">
-  <!-- Keywords for your paper to be indexed by-->
-  <meta name="keywords" content="Machine Learning, Depth, Video Understanding,andrew Gilbert, Sadegh Rahmani,">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="twitter:title" content="Sub-actions in Action: Text-Guided Hand-Role Alignment for Sub-Action Recognition">
+  <meta name="twitter:description" content="BMVC 2026: fine-grained left/right hand-role understanding for egocentric video-language models.">
+  <meta name="twitter:image" content="assets/BiScopeNet_Teaser.jpg">
+  <meta name="keywords" content="BMVC 2026, egocentric video, sub-action recognition, video language models, hand-object interaction, video captioning, BiScopeNet, FocusAlign, MetaLoss, BiScopeCap">
 
-
-  <title>DEAR: Depth-Estimated Action Recognition</title>
+  <title>Sub-actions in Action: Text-Guided Hand-Role Alignment for Sub-Action Recognition</title>
   <link rel="icon" type="image/x-icon" href="static/images/favicon-32x32.png">
-  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
-  rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
   <link rel="stylesheet" href="static/css/bulma.min.css">
   <link rel="stylesheet" href="static/css/bulma-carousel.min.css">
   <link rel="stylesheet" href="static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="static/css/fontawesome.all.min.css">
-  <link rel="stylesheet"
-  href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
   <link rel="stylesheet" href="static/css/index.css">
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://documentcloud.adobe.com/view-sdk/main.js"></script>
   <script defer src="static/js/fontawesome.all.min.js"></script>
   <script src="static/js/bulma-carousel.min.js"></script>
   <script src="static/js/bulma-slider.min.js"></script>
   <script src="static/js/index.js"></script>
+
+  <style>
+    .question-banner { max-width: 900px; margin: 0 auto; }
+    .question-banner h2 { line-height: 1.2; }
+    .feature-card { height: 100%; border-radius: 14px; padding: 1.5rem; background: #f7f7f7; }
+    .result-number { font-size: 2.35rem; font-weight: 700; line-height: 1; margin-bottom: .35rem; }
+    .result-label { font-size: .95rem; color: #555; }
+    .figure-caption { max-width: 900px; margin: 1rem auto 0; }
+    .method-pill { display: inline-block; border-radius: 999px; padding: .25rem .7rem; margin: .15rem; background: #f2f2f2; font-weight: 600; }
+    .faq details { margin-bottom: .8rem; border-bottom: 1px solid #ddd; padding-bottom: .8rem; }
+    .faq summary { cursor: pointer; font-weight: 700; }
+    .bibtex-wrap { position: relative; }
+    .copy-button { position: absolute; top: .6rem; right: .6rem; }
+    .metric-strip { margin-top: 2rem; }
+    .metric-strip .column { display: flex; }
+    .metric-strip .feature-card { width: 100%; }
+    .mini-label { text-transform: uppercase; letter-spacing: .08em; font-size: .75rem; color: #777; font-weight: 700; }
+  </style>
 </head>
 <body>
 
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Sub-actions in Action:<br>Text-Guided Hand-Role Alignment for Sub-Action Recognition</h1>
 
-  <section class="hero">
-    <div class="hero-body">
-      <div class="container is-max-desktop">
-        <div class="columns is-centered">
-          <div class="column has-text-centered">
-            <h1 class="title is-1 publication-title">DEAR: Depth-Estimated Action Recognition</h1>
-            <div class="is-size-5 publication-authors">
-              <!-- Paper authors -->
-              <span class="author-block">
-                <a href="https://www.linkedin.com/in/sadegh-rahmani" target="_blank">Sadegh Rahmani</a>[1]<sup></sup>,</span>
-                <span class="author-block">
-                  <a href="F" target="_blank">Filip Rybansky</a>[2]<sup></sup>,</span>
-                  <span class="author-block">
-                    <a href="https://www.ncl.ac.uk/medical-sciences/people/profile/quocvuong.html" target="_blank">Quoc Vuong</a>[2]<sup></sup>,</span>
-                <span class="author-block">
-                  <a href="https://www.surrey.ac.uk/people/frank-guerin" target="_blank">Frank Guerin</a>[1]<sup></sup>,</span>
-                  <span class="author-block">
-                    <a href="https://andrewjohngilbert.github.io/" target="_blank">Andrew Gilbert</a>[1]<sup></sup>,</span>
-                  </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Sadegh Rahmaniboldaji<sup>1</sup>,</span>
+            <span class="author-block">Filip Rybansky<sup>2</sup>,</span>
+            <span class="author-block">Quoc Vuong<sup>2</sup>,</span>
+            <span class="author-block">Frank Guerin<sup>1</sup>,</span>
+            <span class="author-block"><a href="https://andrewjohngilbert.github.io/" target="_blank">Andrew Gilbert</a><sup>1</sup></span>
+          </div>
 
-                  <div class="is-size-5 publication-authors">
-                    <span class="author-block">[1] Unviersity of Surrey [2] Unviersityof Newcastle<br> <a href="https://eccv2024.ecva.net/" target="_blank">The European Conference of Computer Vision 2024</a> <a href="https://sites.google.com/view/hcvworkshop2024" target="_blank">Human-inspired Computer Vision Workshop</a>              
-                  </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup> University of Surrey &nbsp; <sup>2</sup> Newcastle University<br>
+              <strong>British Machine Vision Conference (BMVC), 2026</strong>
+            </span>
+          </div>
 
-                  <div class="column has-text-centered">
-                    <div class="publication-links">
-                         <!-- Arxiv PDF link -->
-                      <span class="link-block">
-                        <a href="https://andrewjohngilbert.github.io/dear/assets/dear_paper.pdf" target="_blank"
-                        class="external-link button is-normal is-rounded is-dark">
-                        <span class="icon">
-                          <i class="fas fa-file-pdf"></i>
-                        </span>
-                        <span>Paper</span>
-                      </a>
-                    </span>
-
-                    <!-- Supplementary PDF link -->
-                   <span class="link-block">
-                      <a href="assets/DEAR HCV Poster.pdf" target="_blank"
-                      class="external-link button is-normal is-rounded is-dark">
-                      <span class="icon">
-                        <i class="fas fa-file-pdf"></i>
-                      </span>
-                      <span>Poster</span>
-                    </a>
-                  </span>
- 
-                  <!-- Github link -->
-                <span class="link-block">
-                    <a href="https://github.com/SadeghRahmaniB/DEAR" target="_blank"
-                    class="external-link button is-normal is-rounded is-dark">
-                    <span class="icon">
-                      <i class="fab fa-github"></i>
-                    </span>
-                    <span>Code</span>
-                  </a>
-                </span>
-              
-
-                
-            </div>
+          <div class="publication-links" style="margin-top:1.5rem;">
+            <span class="link-block">
+              <a href="assets/BiScopeNet_BMVC2026.pdf" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Paper</span>
+              </a>
+            </span>
           </div>
         </div>
       </div>
@@ -126,21 +94,25 @@
   </div>
 </section>
 
+<section class="section pt-0">
+  <div class="container is-max-desktop question-banner has-text-centered">
+    <h2 class="title is-2">Can a video-language model tell what each hand is actually doing?</h2>
+    <p class="subtitle is-4">Recognising the overall action is not enough. In egocentric video, the left and right hands can play different roles, manipulate different objects, and change those roles within the same activity.</p>
+    <p class="is-size-5"><strong>BiScopeNet makes those sub-actions explicit.</strong> It aligns video features with text-guided hand-role cues and trains the model to prioritise visually grounded objects rather than structural metadata.</p>
+  </div>
+</section>
 
-<!-- Teaser video-->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <img src="assets/dear_teaser.jpg">
-      <h2 class="subtitle has-text-centered">
-        We perform supervised action recognition using a fusion of RGB and depth map frames. We used S4V network for processing RGB and the same network plus VideoMamba to extract depth features. Gated cross-attention (GCA) has been used for fusing modalities, while mean operation has been selected for fusing models' scores.
+      <img src="assets/BiScopeNet_Teaser.jpg" alt="Comparison of baseline video-language models and BiScopeNet for hand-role sub-action recognition">
+      <h2 class="subtitle has-text-centered figure-caption">
+        Baseline models often describe only the high-level action or omit the specific role of each hand. BiScopeNet instead generates structured captions that explicitly describe the action, left-hand role, right-hand role, and manipulated objects.
       </h2>
     </div>
   </div>
 </section>
-<!-- End teaser video -->
 
-<!-- Paper abstract -->
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -148,71 +120,260 @@
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            Detecting actions in videos, particularly within cluttered scenes, poses significant challenges due to the limitations of 2D frame analysis from a camera perspective. Unlike human vision, which benefits from 3D understanding, recognizing actions in such environments can be difficult. This research introduces a novel approach integrating 3D features and depth maps alongside RGB features to enhance action recognition accuracy. Our method involves processing estimated depth maps through a separate branch from the RGB feature encoder and fusing the features to understand the scene and actions comprehensively. Using the Side4Video framework and VideoMamba, which employ CLIP and VisionMamba for spatial feature extraction, our approach outperformed our implementation of the Side4Video network on the Something-Something V2 dataset.
+            Video-language models are increasingly capable of describing egocentric activities, but they often struggle to distinguish the fine-grained roles of the left and right hands. We introduce <strong>sub-action detection</strong>, a task requiring models to recognise the high-level action together with each hand's role and manipulated objects. To address this, we propose <strong>BiScopeNet</strong>, a backbone-agnostic framework that augments existing video-LLMs without changing their vision encoders or language models. BiScopeNet combines <strong>FocusAlign</strong>, a gated text-guided attention module that emphasises action-relevant visual cues, with <strong>MetaLoss</strong>, a masked and object-weighted objective that prioritises visually grounded terms. We also introduce <strong>BiScopeCap-100K</strong>, a large-scale egocentric video benchmark with dense captions describing high-level actions, left/right hand roles, manipulated objects, and spatial metadata. Across multiple pretrained VLMs, BiScopeNet improves fine-grained action, hand-role, and object recognition while substantially reducing unstructured caption outputs.
           </p>
         </div>
       </div>
     </div>
   </div>
 </section>
-<!-- End paper abstract -->
 
-
-
-<!-- Paper poster -->
-
-  <section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <h2 class="title">Poster</h2>
-
-      <iframe  src="assets/DEAR HCV Poster.pdf" width="100%" height="1000">
-          </iframe>
-        
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">From an action to its sub-actions</h2>
+    <div class="columns">
+      <div class="column">
+        <div class="feature-card">
+          <div class="mini-label">High-level action</div>
+          <h3 class="title is-4 mt-2">“Washing a plate”</h3>
+          <p>A conventional caption may correctly identify the activity while still missing how the manipulation is being performed.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="feature-card">
+          <div class="mini-label">Sub-action understanding</div>
+          <h3 class="title is-4 mt-2">Left hand + right hand + objects</h3>
+          <p>BiScopeNet aims to identify which hand holds, supports, moves, cleans, pours, cuts, or otherwise manipulates each object during the ongoing activity.</p>
+        </div>
       </div>
     </div>
-  </section>
-<!--End paper poster -->
-
-
-<!--BibTex citation -->
-  <section class="section" id="BibTeX">
-    <div class="container is-max-desktop content">
-      <h2 class="title">BibTeX</h2>
-      <pre><code>@inproceedings{Rahmani:Dear:ECCVWS:2024,
-        AUTHOR = Rahmani, Sadegh and Rybansky, Filip and Vuong, Quoc and Guerin, Frank and Gilbert, Andrew ",
-        TITLE = "DEAR: Depth-Estimated Action Recognition",
-        BOOKTITLE = " The European Conference of Computer Vision 2024, Human-inspired Computer Vision Workshop",
-        YEAR = "2024",
-        }</code></pre>
-    </div>
+  </div>
 </section>
-<!--End BibTex citation -->
 
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Two complementary components</h2>
+    <div class="columns">
+      <div class="column">
+        <div class="feature-card" style="background:white;">
+          <h3 class="title is-4">1. FocusAlign</h3>
+          <p>Standard projectors treat visual tokens uniformly. FocusAlign instead uses text-guided cross-attention to re-weight video features around action- and hand-relevant evidence.</p>
+          <p class="mt-3"><span class="method-pill">Text-to-video attention</span><span class="method-pill">Adaptive gating</span><span class="method-pill">Residual refinement</span></p>
+          <p>The gated residual design preserves the original visual representation while allowing the model to increasingly focus on sub-action cues during training.</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="feature-card" style="background:white;">
+          <h3 class="title is-4">2. MetaLoss</h3>
+          <p>Structured captions contain useful spatial metadata, but those tokens should not dominate language modelling. MetaLoss masks metadata spans and upweights object words.</p>
+          <p class="mt-3"><span class="method-pill">Mask metadata</span><span class="method-pill">Object weighting</span><span class="method-pill">Grounded supervision</span></p>
+          <p>This concentrates gradient signal on semantically important actions, hands, and manipulated objects without adding an auxiliary scoring model.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <footer class="footer">
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <h2 class="title is-3">Architecture</h2>
+      <img src="assets/BiScopeNet_System.jpg" alt="Overview of the BiScopeNet architecture with BiScopeCap, FocusAlign and MetaLoss">
+      <h2 class="subtitle has-text-centered figure-caption">
+        Video frames are encoded into spatiotemporal tokens. FocusAlign performs text-guided cross-modal alignment and adaptive gating before the representation is projected into the LLM. During training, MetaLoss masks auxiliary metadata while emphasising grounded object terms.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">BiScopeCap-100K</h2>
+    <div class="content has-text-justified">
+      <p>
+        Fine-grained hand-role understanding needs supervision that existing egocentric datasets only partially provide. BiScopeCap-100K standardises and enriches data from EPIC-KITCHENS / EPIC-VISOR, Ego4D, HOI-QA, and HD-EPIC into a unified video-level format containing high-level actions, explicit left/right hand roles, manipulated objects, and spatial metadata.
+      </p>
+    </div>
+    <div class="columns metric-strip has-text-centered">
+      <div class="column is-one-third">
+        <div class="feature-card">
+          <div class="result-number">104K+</div>
+          <div class="result-label">train + test samples</div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="feature-card">
+          <div class="result-number">12,814</div>
+          <div class="result-label">action instances</div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="feature-card">
+          <div class="result-number">5,727</div>
+          <div class="result-label">active objects, including hands</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Key results</h2>
+    <div class="columns is-multiline has-text-centered">
+      <div class="column is-one-third">
+        <div class="feature-card" style="background:white;">
+          <div class="result-number">30.7%</div>
+          <div class="result-label">Action recognition with BiScopeNet + VideoChatGPT, up from 14.3%</div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="feature-card" style="background:white;">
+          <div class="result-number">47.9%</div>
+          <div class="result-label">Object recognition with BiScopeNet + VideoChatGPT, up from 30.1%</div>
+        </div>
+      </div>
+      <div class="column is-one-third">
+        <div class="feature-card" style="background:white;">
+          <div class="result-number">488 → 7</div>
+          <div class="result-label">Unstructured outputs with the VideoChatGPT backbone</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content has-text-justified mt-5">
+      <p>
+        The gains are not tied to one model family. With the NVILA backbone, BiScopeNet reaches <strong>45.5% action recognition, 44.9% right-hand recognition, 41.2% left-hand recognition, and 58.9% object recognition</strong>, while producing zero unstructured outputs. With VideoChatGPT, the largest gains are especially clear in action and object recognition, and replacing CLIP with DINOv3 improves performance further.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">What changes in the generated captions?</h2>
+    <img src="assets/BiScopeNet_Qualitative.jpg" alt="Qualitative comparison of BiScopeNet and baseline video-language models">
+    <div class="content has-text-justified figure-caption">
+      <p>
+        Baselines often misidentify the manipulated object, swap left/right hand roles, or produce long but weakly grounded descriptions. BiScopeNet produces shorter, more structured outputs that more closely match the visible hand-object interaction. The qualitative examples also show a second benefit: substantially fewer malformed, unfinished, or tag-filled responses.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">How is sub-action recognition evaluated?</h2>
+    <div class="columns">
+      <div class="column">
+        <div class="feature-card" style="background:white;">
+          <h3 class="title is-5">Action recognition</h3>
+          <p>Does the caption correctly identify the overall action being performed?</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="feature-card" style="background:white;">
+          <h3 class="title is-5">Right-hand role</h3>
+          <p>Does it correctly identify what the right hand is doing?</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="feature-card" style="background:white;">
+          <h3 class="title is-5">Left-hand role</h3>
+          <p>Does it correctly identify what the left hand is doing?</p>
+        </div>
+      </div>
+      <div class="column">
+        <div class="feature-card" style="background:white;">
+          <h3 class="title is-5">Object recognition</h3>
+          <p>Are the manipulated objects correctly identified and grounded in the action?</p>
+        </div>
+      </div>
+    </div>
+    <div class="content has-text-justified mt-4">
+      <p>The paper uses an independent LLM-as-a-judge protocol to score these four dimensions. A manual check on 100 predicted captions shows close agreement between automated and human scoring, with overall action accuracy differing by less than one percentage point and the hand/object metrics typically within a few percentage points.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title is-3">Want to explore the details?</h2>
+    <p class="subtitle">Read the paper for the full method, dataset construction, ablations, and qualitative analysis.</p>
+    <div class="publication-links">
+      <span class="link-block">
+        <a href="assets/BiScopeNet_BMVC2026.pdf" target="_blank" class="external-link button is-medium is-rounded is-dark">
+          <span class="icon"><i class="fas fa-file-pdf"></i></span><span>Download Paper</span>
+        </a>
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="section hero is-light faq">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Frequently Asked Questions</h2>
+    <details open>
+      <summary>What is “sub-action detection”?</summary>
+      <p class="mt-2">Rather than only naming the overall activity, sub-action detection requires the model to explicitly recognise the role of each hand and the objects being manipulated within that ongoing action.</p>
+    </details>
+    <details>
+      <summary>Does BiScopeNet replace the video encoder or LLM?</summary>
+      <p class="mt-2">No. The framework operates at the projection stage between the vision encoder and language model. In the reported experiments, the core vision encoder and LLM remain frozen while FocusAlign is trained.</p>
+    </details>
+    <details>
+      <summary>Why is MetaLoss needed if the metadata is useful?</summary>
+      <p class="mt-2">The spatial metadata is useful as structural guidance, but predicting markup and bounding-box tokens is not the end task. MetaLoss masks those spans from the language loss while increasing the weight of visually grounded object terms.</p>
+    </details>
+    <details>
+      <summary>Does the method generalise across backbones?</summary>
+      <p class="mt-2">The experiments integrate BiScopeNet into both NVILA and VideoChatGPT and also test several vision encoders. The framework improves performance across these settings, supporting its backbone-agnostic design.</p>
+    </details>
+    <details>
+      <summary>When will BiScopeCap be released?</summary>
+      <p class="mt-2">The paper states that the dataset, derived annotations, and curation scripts will be released publicly upon acceptance, while the underlying raw videos remain governed by their original dataset licences.</p>
+    </details>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content bibtex-wrap">
+    <h2 class="title">BibTeX</h2>
+    <button class="button is-small copy-button" onclick="copyBibtex()">Copy BibTeX</button>
+    <pre><code id="bibtex">@inproceedings{Rahmaniboldaji2026BiScopeNet,
+  author    = {Sadegh Rahmaniboldaji and Filip Rybansky and Quoc Vuong and Frank Guerin and Andrew Gilbert},
+  title     = {Sub-actions in Action: Text-Guided Hand-Role Alignment for Sub-Action Recognition},
+  booktitle = {British Machine Vision Conference (BMVC)},
+  year      = {2026}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
   <div class="container">
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
-
           <p>
-            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a> which was adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page.
-            You are free to borrow the of this website, we just ask that you link back to this page in the footer. <br> This website is licensed under a <a rel="license"  href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
+            This page was built using the <a href="https://github.com/eliahuhorwitz/Academic-project-page-template" target="_blank">Academic Project Page Template</a>, adopted from the <a href="https://nerfies.github.io" target="_blank">Nerfies</a> project page. This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
-
         </div>
       </div>
     </div>
   </div>
 </footer>
 
-<!-- Statcounter tracking code -->
-  
-<!-- You can add a tracker to track page visits by creating an account at statcounter.com -->
+<script>
+function copyBibtex() {
+  const text = document.getElementById('bibtex').innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    const button = document.querySelector('.copy-button');
+    const oldText = button.innerText;
+    button.innerText = 'Copied!';
+    setTimeout(() => button.innerText = oldText, 1500);
+  });
+}
+</script>
 
-    <!-- End of Statcounter Code -->
-
-  </body>
-  </html>
+</body>
+</html>
